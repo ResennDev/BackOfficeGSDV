@@ -3,23 +3,44 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+  height: 100vh;
+  background-color: #848581;
   .login-form {
     display: flex;
     flex-direction: column;
     background-color: #00861649;
-    padding: 40px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 5px 15px 15px rgba(0, 0, 0, 0.3);
+    .logo-login {
+      display: flex;
+      width: 8rem;
+      padding-left: 35%;
+    }
+    .title {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2px;
+    }
+    .subtitle {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .container-inputs {
+    display: flex;
+    justify-content: center;
   }
   .inputs {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2px;
+    margin: 5px;
     input {
+      display: flex;
       margin-bottom: 10px;
       padding: 10px;
-      border-radius: 5px;
+      border-radius: 8px;
       border: 1px solid #ccc;
+      width: 25rem;
+      height: 3vh;
     }
   }
   .lembrar {
@@ -33,6 +54,8 @@
   .acoes {
     display: flex;
     justify-content: center;
+    gap: 1.3rem;
+
     button {
       padding: 10px 20px;
       background-color: #008616;
@@ -40,6 +63,8 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      width: 10rem;
+      height: 5vh;
       &:hover {
         background-color: #006f12;
       }
