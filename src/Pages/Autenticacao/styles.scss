@@ -4,11 +4,11 @@
   justify-content: center;
   padding: 20px;
   height: 100vh;
-  background-color: #848581;
+  background-color: lightgreen;
   .login-form {
     display: flex;
     flex-direction: column;
-    background-color: #00861649;
+    background-color: #0009;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 5px 15px 15px rgba(0, 0, 0, 0.3);
@@ -21,10 +21,12 @@
       display: flex;
       justify-content: center;
       margin-bottom: 2px;
+      color: black;
     }
     .subtitle {
       display: flex;
       justify-content: center;
+      color: black;
     }
   }
   .container-inputs {
@@ -41,12 +43,18 @@
       border: 1px solid #ccc;
       width: 25rem;
       height: 3vh;
+      background-color: darkgrey;
+      color: black;
+      &::placeholder {
+        color: black;
+      }
     }
   }
   .lembrar {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    color: black;
     input[type="checkbox"] {
       margin-right: 10px;
     }
@@ -59,12 +67,13 @@
     button {
       padding: 10px 20px;
       background-color: #008616;
-      color: white;
+      color: black;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       width: 10rem;
       height: 5vh;
+      -webkit-text-stroke: thin;
       &:hover {
         background-color: #006f12;
       }
