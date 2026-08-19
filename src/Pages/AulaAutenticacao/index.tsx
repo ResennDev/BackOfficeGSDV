@@ -1,6 +1,6 @@
 import "./styles.scss";
 
-function Autenticacao() {
+function AulaAutenticacao() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Aqui você pode adicionar a lógica para lidar com o envio do formulário, como autenticação do usuário
@@ -35,4 +35,4 @@ function Autenticacao() {
   );
 }
 
-export default Autenticacao;
+export default AulaAutenticacao;

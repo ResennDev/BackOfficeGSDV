@@ -1,0 +1,14 @@
+.container-home {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: grey;
+  .home-title {
+    color: blue;
+  }
+  .home-subtitle {
+    display: flex;
+    color: green;
+  }
+}
