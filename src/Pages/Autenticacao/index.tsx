@@ -1,7 +1,11 @@
+import { useState } from "react";
 import "./styles.scss";
 import logo from "../../Assets/Images/logo.png";
 
 function Autenticacao() {
+  const [usuario, setUsuario] = useState("");
+  const [senha, setSenha] = useState("");
+
   return (
     // <>
     <div className="container-login">
@@ -14,8 +18,18 @@ function Autenticacao() {
 
         <div className="container-inputs">
           <form className="inputs">
-            <input type="text" placeholder="Usuário" />
-            <input type="password" placeholder="Senha" />
+            <input
+              type="text"
+              placeholder="Usuário"
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+            />
           </form>
         </div>
 

@@ -14,4 +14,5 @@ const RoutesApp = () => {
     </BrowserRouter>
   );
 };
+
 export default RoutesApp;
