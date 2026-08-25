@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Autenticacao from "../Pages/Autenticacao";
+import { Autenticacao } from "../Pages/Autenticacao";
 import AulaAutenticacao from "../Pages/AulaAutenticacao";
-import Home from "../Pages/Home";
+import { Home } from "../Pages/Home";
 
-const RoutesApp = () => {
+export const RoutesApp = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -14,5 +14,3 @@ const RoutesApp = () => {
     </BrowserRouter>
   );
 };
-
-export default RoutesApp;

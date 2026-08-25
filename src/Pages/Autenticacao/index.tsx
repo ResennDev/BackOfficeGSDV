@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./styles.scss";
 import logo from "../../Assets/Images/logo.png";
+import { useNavigate } from "react-router-dom";
 
-function Autenticacao() {
+export function Autenticacao() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("Usuário:", usuario);
+    console.log("Senha:", senha);
+  }, [usuario, senha]);
 
   return (
     // <>
@@ -39,13 +46,15 @@ function Autenticacao() {
         </div>
 
         <div className="acoes">
-          <button type="submit">Login</button>
-          <button type="submit">Esqueci a Senha</button>
+          <button type="submit" onClick={() => navigate("/Home")}>
+            Login
+          </button>
+          <button type="submit" onClick={() => navigate("/recuperar-senha")}>
+            Esqueci a Senha
+          </button>
         </div>
       </div>
     </div>
     // </>
   );
 }
-
-export default Autenticacao;

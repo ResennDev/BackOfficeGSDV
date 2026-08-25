@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./styles.scss";
 
-function Home() {
+export function Home() {
   return (
     <div className="container-home">
       <h1 className="home-title">Seja Bem vindo Fulano!</h1>
@@ -11,5 +11,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;
