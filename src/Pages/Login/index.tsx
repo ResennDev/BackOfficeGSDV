@@ -3,7 +3,7 @@ import "./styles.scss";
 import logo from "../../Assets/Images/logo.png";
 import { useNavigate } from "react-router-dom";
 
-export function Autenticacao() {
+export function Login() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
