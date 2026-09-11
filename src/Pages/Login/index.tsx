@@ -2,7 +2,15 @@ import { useState, useEffect } from "react";
 import "./styles.scss";
 import logo from "../../Assets/Images/logo.png";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Checkbox, FormControlLabel, TextField, Typography,} from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 export function Login() {
   const [usuario, setUsuario] = useState("");
@@ -15,79 +23,58 @@ export function Login() {
   }, [usuario, senha]);
 
   return (
-    <>
-      <Box className="logo">
-        <img src={logo} alt="Logo" />
-      </Box>
-      <Typography variant="h4" component="h1" className="title">
-        Faça seu login
-      </Typography>
+    <Box className="container-login">
+      <Box className="login-form">
+        <Box className="logo">
+          <img src={logo} alt="Logo" />
+        </Box>
 
-      <Typography variant="subtitle1" component="h4" className="subtitle">
-        Seja bem vindo ao seu Gerenciador de Vendas!
-      </Typography>
+        <Typography variant="h4" component="h1" className="title">
+          Faça seu login
+        </Typography>
 
-      <TextField required
-      id="outlined-required"
-      label="Usuario"
-      placeholder="Obrigatorio"
-      value={usuario}
-      onChange={(e) => setUsuario(e.target.value)}
-            />
+        <Typography variant="subtitle1" className="subtitle">
+          Seja bem vindo ao seu Gerenciador de Vendas!
+        </Typography>
 
-            <TextField required
-            id="outlined-password-input"
+        <Stack spacing={2} className="input-fields">
+          <TextField
+            required
+            id="usuario-input"
+            label="Usuário"
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
+          />
+
+          <TextField
+            required
+            id="senha-input"
             label="Senha"
-            placeholder="Obrigatorio"
             type="password"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-            />
-      <FormControlLabel control={<Checkbox defaultChecked />} label="Lembrar de mim" />
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+          />
+        </Stack>
 
-      <Box className="acoes">
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => navigate("/dashboard")}> Entrar </Button>
+        <FormControlLabel
+          control={<Checkbox defaultChecked />}
+          label="Lembrar de mim"
+        />
+
+        <Box className="acoes">
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => navigate("/dashboard")}
+          >
+            Entrar
+          </Button>
+        </Box>
+
+        <Button variant="text" onClick={() => navigate("/recuperar-senha")}>
+          Esqueci a Senha
+        </Button>
       </Box>
-
-      <Button
-        variant="contained"
-        color="success"
-        onClick={() => navigate("/recuperar-senha")}> Esqueci a Senha </Button>
-    </>
+    </Box>
   );
 }
-    //     <div className="container-inputs">
-    //       <form className="inputs">
-    //         <input
-    //           type="text"
-    //           placeholder="Usuário"
-    //           value={usuario}
-    //           onChange={(e) => setUsuario(e.target.value)}
-    //         />
-    //         <input
-    //           type="password"
-    //           placeholder="Senha"
-    //           value={senha}
-    //           onChange={(e) => setSenha(e.target.value)}
-    //         />
-    //       </form>
-    //     </div>
-
-    //     <div className="lembrar">
-    //       <input type="checkbox" id="lembrar-me" defaultChecked />
-    //       <label htmlFor="lembrar-me">Lembrar Senha</label>
-    //     </div>
-
-    //     <div className="acoes">
-    //       <button type="submit" onClick={() => navigate("/Home")}>
-    //         Login
-    //       </button>
-    //       <button type="submit" onClick={() => navigate("/recuperar-senha")}>
-    //         Esqueci a Senha
-    //       </button>
-    //     </div>
-    //   </div>
-    // </div>
