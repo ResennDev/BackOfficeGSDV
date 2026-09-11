@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./styles.scss";
 import logo from "../../Assets/Images/logo.png";
 import { useNavigate } from "react-router-dom";
+import { Box, Button, Checkbox, FormControlLabel, TextField, Typography,} from "@mui/material";
 
 export function Login() {
   const [usuario, setUsuario] = useState("");
@@ -14,47 +15,79 @@ export function Login() {
   }, [usuario, senha]);
 
   return (
-    // <>
-    <div className="container-login">
-      <div className="login-form">
-        <img className="logo-login" src={logo} alt="Logo" />
-        <h1 className="title">Faça seu login</h1>
-        <h4 className="subtitle">
-          Seja bem vindo ao seu Gerenciador de Vendas!
-        </h4>
+    <>
+      <Box className="logo">
+        <img src={logo} alt="Logo" />
+      </Box>
+      <Typography variant="h4" component="h1" className="title">
+        Faça seu login
+      </Typography>
 
-        <div className="container-inputs">
-          <form className="inputs">
-            <input
-              type="text"
-              placeholder="Usuário"
-              value={usuario}
-              onChange={(e) => setUsuario(e.target.value)}
+      <Typography variant="subtitle1" component="h4" className="subtitle">
+        Seja bem vindo ao seu Gerenciador de Vendas!
+      </Typography>
+
+      <TextField required
+      id="outlined-required"
+      label="Usuario"
+      placeholder="Obrigatorio"
+      value={usuario}
+      onChange={(e) => setUsuario(e.target.value)}
             />
-            <input
-              type="password"
-              placeholder="Senha"
+
+            <TextField required
+            id="outlined-password-input"
+            label="Senha"
+            placeholder="Obrigatorio"
+            type="password"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
             />
-          </form>
-        </div>
+      <FormControlLabel control={<Checkbox defaultChecked />} label="Lembrar de mim" />
 
-        <div className="lembrar">
-          <input type="checkbox" id="lembrar-me" defaultChecked />
-          <label htmlFor="lembrar-me">Lembrar Senha</label>
-        </div>
+      <Box className="acoes">
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => navigate("/dashboard")}> Entrar </Button>
+      </Box>
 
-        <div className="acoes">
-          <button type="submit" onClick={() => navigate("/Home")}>
-            Login
-          </button>
-          <button type="submit" onClick={() => navigate("/recuperar-senha")}>
-            Esqueci a Senha
-          </button>
-        </div>
-      </div>
-    </div>
-    // </>
+      <Button
+        variant="contained"
+        color="success"
+        onClick={() => navigate("/recuperar-senha")}> Esqueci a Senha </Button>
+    </>
   );
 }
+    //     <div className="container-inputs">
+    //       <form className="inputs">
+    //         <input
+    //           type="text"
+    //           placeholder="Usuário"
+    //           value={usuario}
+    //           onChange={(e) => setUsuario(e.target.value)}
+    //         />
+    //         <input
+    //           type="password"
+    //           placeholder="Senha"
+    //           value={senha}
+    //           onChange={(e) => setSenha(e.target.value)}
+    //         />
+    //       </form>
+    //     </div>
+
+    //     <div className="lembrar">
+    //       <input type="checkbox" id="lembrar-me" defaultChecked />
+    //       <label htmlFor="lembrar-me">Lembrar Senha</label>
+    //     </div>
+
+    //     <div className="acoes">
+    //       <button type="submit" onClick={() => navigate("/Home")}>
+    //         Login
+    //       </button>
+    //       <button type="submit" onClick={() => navigate("/recuperar-senha")}>
+    //         Esqueci a Senha
+    //       </button>
+    //     </div>
+    //   </div>
+    // </div>
