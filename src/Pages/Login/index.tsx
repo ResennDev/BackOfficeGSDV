@@ -13,67 +13,155 @@ import {
 } from "@mui/material";
 
 export function Login() {
-  const [usuario, setUsuario] = useState("");
+  const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Usuário:", usuario);
+    console.log("Email:", email);
     console.log("Senha:", senha);
-  }, [usuario, senha]);
+  }, [email, senha]);
 
   return (
     <Box className="container-login">
-      <Box className="login-form">
-        <Box className="logo">
-          <img src={logo} alt="Logo" />
-        </Box>
+      <Box className="login-content">
+        <Box className="login-form">
+          <Box className="logo-login">
+            <img src={logo} alt="Logo-login" />
+          </Box>
 
-        <Typography variant="h4" component="h1" className="title">
-          Faça seu login
-        </Typography>
+          <Typography variant="h4" component="h1" className="title">
+            Faça seu login
+          </Typography>
 
-        <Typography variant="subtitle1" className="subtitle">
-          Seja bem vindo ao seu Gerenciador de Vendas!
-        </Typography>
+          <Typography variant="subtitle1" className="subtitle">
+            Seja bem vindo ao seu Gerenciador de Vendas!
+          </Typography>
 
-        <Stack spacing={2} className="input-fields">
-          <TextField
-            required
-            id="usuario-input"
-            label="Usuário"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-          />
-
-          <TextField
-            required
-            id="senha-input"
-            label="Senha"
-            type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-        </Stack>
-
-        <FormControlLabel
-          control={<Checkbox defaultChecked />}
-          label="Lembrar de mim"
-        />
-
-        <Box className="acoes">
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => navigate("/dashboard")}
+          <Stack
+            spacing={3}
+            sx={{
+              width: "25rem",
+            }}
+            className="input-fields"
           >
-            Entrar
-          </Button>
-        </Box>
+            <TextField
+              required
+              id="usuario-input"
+              label="Email"
+              fullWidth
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  color: "#008616",
+                  backgroundColor: "#baffc6",
+                  padding: "0 4px",
 
-        <Button variant="text" onClick={() => navigate("/recuperar-senha")}>
-          Esqueci a Senha
-        </Button>
+                  "& fieldset": {
+                    borderColor: "#008616",
+                  },
+
+                  "&:hover fieldset": {
+                    borderColor: "#006f12",
+                  },
+
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#008616",
+                  },
+                },
+
+                "& .MuiInputLabel-root": {
+                  color: "#000000",
+                },
+
+                "& .MuiInputLabel-root.MuiInputLabel-shrink": {
+                  color: "#baffc6",
+                  transform: "translate(14px, -17px) scale(0.75)",
+                },
+
+                "& .MuiInputBase-input": {
+                  color: "black",
+                },
+              }}
+            />
+
+            <TextField
+              required
+              id="senha-input"
+              label="Senha"
+              fullWidth
+              type="password"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "#baffc6",
+
+                  "& fieldset": {
+                    borderColor: "#008616",
+                  },
+
+                  "&:hover fieldset": {
+                    borderColor: "#006f12",
+                  },
+
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#008616",
+                  },
+                },
+
+                "& .MuiInputLabel-root": {
+                  color: "#000000",
+                },
+
+                "& .MuiInputLabel-root.MuiInputLabel-shrink": {
+                  color: "#baffc6",
+                  transform: "translate(14px, -17px) scale(0.75)",
+                },
+
+                "& .MuiInputBase-input": {
+                  color: "black",
+                },
+              }}
+            />
+          </Stack>
+
+          <FormControlLabel
+            className="lembrar-me"
+            control={<Checkbox defaultChecked />}
+            label="Lembrar de mim"
+            sx={{ width: "25rem", margin: 0 }}
+          />
+
+          <Box className="acoes">
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => navigate("/dashboard")}
+              sx={{ width: "12rem", height: "6vh", fontWeight: "bold" }}
+            >
+              Entrar
+            </Button>
+
+            <Button
+              variant="outlined"
+              color="success"
+              onClick={() => navigate("/recuperar-senha")}
+              sx={{ width: "12rem", height: "6vh", fontWeight: "bold" }}
+            >
+              Esqueci a Senha
+            </Button>
+          </Box>
+
+          <Typography variant="body1" className="cadastro-link">
+            Não tem cadastro? <a href="/cadastro">Clique aqui</a> para se
+            cadastrar.
+          </Typography>
+        </Box>
+        <Typography variant="body2" className="copyright">
+          © 2026 GSDV. Todos os direitos reservados.
+        </Typography>
       </Box>
     </Box>
   );

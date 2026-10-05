@@ -4,60 +4,52 @@
   justify-content: center;
   height: 100vh;
   background-color: lightgreen;
+  .login-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .login-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: #0009;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 5px 15px 15px rgba(0, 0, 0, 0.3);
     .logo-login {
       display: flex;
-      width: 8rem;
-      padding-left: 35%;
-    }
-    .title {
-      display: flex;
       justify-content: center;
-      margin-bottom: 2px;
-      color: black;
-    }
-    .subtitle {
-      display: flex;
-      justify-content: center;
-      color: black;
-    }
-  }
-  .container-inputs {
-    display: flex;
-    justify-content: center;
-  }
-  .inputs {
-    margin: 5px;
-    input {
-      display: flex;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      width: 25rem;
-      height: 3vh;
-      background-color: darkgrey;
-      color: black;
-      &::placeholder {
-        color: black;
+      width: 100%;
+
+      img {
+        width: 8rem;
+        display: block;
       }
     }
-  }
-  .lembrar {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    color: black;
-    input[type="checkbox"] {
-      margin-right: 10px;
+    .title {
+      margin-bottom: 2px;
+      color: black;
+      text-align: center;
+    }
+    .subtitle {
+      margin-bottom: 1.5rem;
+      color: black;
+      text-align: center;
     }
   }
+
+  .lembrar-me {
+    display: flex;
+    padding: 0.5rem 0;
+    color: black;
+
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+  }
+
   .acoes {
     display: flex;
     justify-content: center;
@@ -65,17 +57,38 @@
 
     button {
       padding: 10px 20px;
-      background-color: #008616;
-      color: black;
+      background-color: #baffc6;
+      color: #000000;
+      box-shadow: 2px 5px 2px rgba(0, 0, 0, 0.1);
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      width: 10rem;
-      height: 5vh;
+      width: 12rem;
+      height: 6vh;
       -webkit-text-stroke: thin;
       &:hover {
-        background-color: #006f12;
+        background-color: lightgreen;
       }
     }
+  }
+  .cadastro-link {
+    padding-top: 1.2rem;
+    color: black;
+    text-align: center;
+
+    a {
+      color: lightgreen;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+  .copyright {
+    margin-top: 3rem;
+    color: black;
+    text-align: center;
   }
 }
