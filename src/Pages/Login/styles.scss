@@ -57,14 +57,14 @@
 
     button {
       padding: 10px 20px;
-      background-color: #baffc6;
+      background-color: #008616;
       color: #000000;
       box-shadow: 2px 5px 2px rgba(0, 0, 0, 0.1);
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      width: 12rem;
-      height: 6vh;
+      width: 11rem;
+      height: 5vh;
       -webkit-text-stroke: thin;
       &:hover {
         background-color: lightgreen;
@@ -87,8 +87,9 @@
     }
   }
   .copyright {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     color: black;
     text-align: center;
+    font-weight: bold;
   }
 }
