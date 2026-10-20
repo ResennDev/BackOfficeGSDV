@@ -24,3 +24,9 @@ yarn-error.log*
 
 # Backup temporario do Git
 .git-backup/
+
+# Backend
+Backend/node_modules/
+Backend/.env
+Backend/.env.*
+!Backend/.env.example
