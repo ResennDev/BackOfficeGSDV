@@ -1,31 +1,90 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./styles.scss";
 import logo from "../../Assets/Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import {
+  Alert,
   Box,
   Button,
   Checkbox,
   FormControlLabel,
+  Snackbar,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
+  const [notificacaoAberta, setNotificacaoAberta] = useState(false);
+  const [tipoNotificacao, setTipoNotificacao] = useState<"success" | "error">(
+    "success",
+  );
+  const [mensagemNotificacao, setMensagemNotificacao] = useState("");
 
-  useEffect(() => {
-    console.log("Email:", email);
-    console.log("Senha:", senha);
-  }, [email, senha]);
+  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!email.trim() || !senha) {
+      setTipoNotificacao("error");
+      setMensagemNotificacao("Por favor, preencha todos os campos.");
+      setNotificacaoAberta(true);
+      return;
+    }
+
+    try {
+      const resposta = await axios.post(
+        window.location.hostname === "localhost"
+          ? "http://localhost:3001/auth/login"
+          : "/api/auth/login",
+        {
+          email: email.trim(),
+          senha,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      console.log("Resposta da API:", resposta.data);
+
+      setTipoNotificacao("success");
+      setMensagemNotificacao("Login realizado com sucesso!");
+      setNotificacaoAberta(true);
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
+    } catch (error) {
+      console.error("Erro inesperado:", error);
+
+      setTipoNotificacao("error");
+
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          setMensagemNotificacao("Email ou senha invalidos. Tente novamente.");
+        } else if (!error.response) {
+          setMensagemNotificacao("Não foi possivel conectar ao servidor.");
+        } else {
+          setMensagemNotificacao(
+            error.response.data?.mensagem ||
+              "Ocorreu um erro inesperado. Tente novamente.",
+          );
+        }
+      } else {
+        setMensagemNotificacao("Ocorreu um erro inesperado. Tente novamente.");
+      }
+      setNotificacaoAberta(true);
+    }
+  }
 
   return (
     <Box className="container-login">
       <Box className="login-content">
-        <Box className="login-form">
+        <Box className="login-form" component="form" onSubmit={handleLogin}>
           <Box className="logo-login">
             <img src={logo} alt="Logo-login" />
           </Box>
@@ -136,15 +195,16 @@ export function Login() {
 
           <Box className="acoes">
             <Button
+              type="submit"
               variant="contained"
               color="success"
-              onClick={() => navigate("/dashboard")}
               sx={{ width: "12rem", height: "6vh", fontWeight: "bold" }}
             >
               Entrar
             </Button>
 
             <Button
+              type="button"
               variant="outlined"
               color="success"
               onClick={() => navigate("/recuperar-senha")}
@@ -159,6 +219,21 @@ export function Login() {
             cadastrar.
           </Typography>
         </Box>
+        <Snackbar
+          open={notificacaoAberta}
+          autoHideDuration={1500}
+          onClose={() => setNotificacaoAberta(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert
+            onClose={() => setNotificacaoAberta(false)}
+            severity={tipoNotificacao}
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            {mensagemNotificacao}
+          </Alert>
+        </Snackbar>
         <Typography variant="body2" className="copyright">
           © 2026 GSDV. Todos os direitos reservados.
         </Typography>

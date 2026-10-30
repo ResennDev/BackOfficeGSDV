@@ -4,10 +4,12 @@ import logo from "../../Assets/Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
+  Alert,
   Box,
   Button,
   IconButton,
   InputAdornment,
+  Snackbar,
   Stack,
   TextField,
   Typography,
@@ -24,51 +26,63 @@ export function Cadastro() {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
+  const [notificacaoAberta, setNotificacaoAberta] = useState(false);
+  const [tipoNotificacao, setTipoNotificacao] = useState<"success" | "error">("success",);
+  const [mensagemNotificacao, setMensagemNotificacao] = useState("");
   const navigate = useNavigate();
 
   async function handleCadastro(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem. Por favor, tente novamente.");
+      setTipoNotificacao("error");
+      setMensagemNotificacao("As senhas não coincidem.");
+      setNotificacaoAberta(true);
       return;
     }
 
     try {
-      const resposta = await axios.post("http://100.107.32.113:3001/auth/cadastro", {
-        nome,
-        sobrenome,
-        email,
-        senha,
-      });
+      const resposta = await axios.post(
+        "http://100.107.32.113:3001/auth/cadastro",
+        {
+          nome,
+          sobrenome,
+          email,
+          senha,
+        },
+      );
 
-      alert("Cadastro realizado com sucesso!");
       console.log("Resposta do servidor:", resposta.data);
-      navigate("/Login");
-      // } catch (error) {
-      //   console.error("Erro ao cadastrar:", error);
-      //   alert("Não foi possivel realizar o cadastro.");
-      // }
+
+      setTipoNotificacao("success");
+      setMensagemNotificacao(
+        "Cadastro realizado com sucesso! Redirecionando para o Login...",
+      );
+      setNotificacaoAberta(true);
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (error) {
+      console.error("Erro ao realizar o cadastro:", error);
+
+      let mensagem =
+        "Não foi possível realizar o cadastro. Verifique o console para mais detalhes.";
+
       if (axios.isAxiosError(error)) {
-        console.error("Status:", error.response?.status);
-        console.error("Resposta do backend:", error.response?.data);
-        console.error("Mensagem:", error.message);
-      } else {
-        console.error("Erro inesperado:", error);
+        if (error.response?.status === 409) {
+          mensagem =
+            "O email informado já está em uso. Por favor, utilize outro email.";
+        } else if (error.response?.data?.message) {
+          mensagem = error.response.data.message;
+        }
       }
 
-      alert("Não foi possível realizar o cadastro. Verifique o console.");
+      setTipoNotificacao("error");
+      setMensagemNotificacao(mensagem);
+      setNotificacaoAberta(true);
     }
   }
-
-  // useEffect(() => {
-  //   console.log("Nome:", nome);
-  //   console.log("Sobrenome:", sobrenome);
-  //   console.log("Email:", email);
-  //   console.log("Senha:", senha);
-  //   console.log("Confirmar Senha:", confirmarSenha);
-  // }, [nome, sobrenome, email, senha, confirmarSenha]);
 
   return (
     <Box className="container-cadastro">
@@ -366,6 +380,24 @@ export function Cadastro() {
           © 2026 GSDV. Todos os direitos reservados.
         </Typography>
       </Box>
+      <Snackbar
+        open={notificacaoAberta}
+        autoHideDuration={6000}
+        onClose={(_, reason) => {
+          if (reason === "clickaway") return;
+          setNotificacaoAberta(false);
+        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setNotificacaoAberta(false)}
+          severity={tipoNotificacao}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {mensagemNotificacao}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

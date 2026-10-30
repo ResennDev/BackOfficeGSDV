@@ -21,7 +21,14 @@ router.post("/cadastro", async (req, res) => {
       [nome, sobrenome, email, senhaCriptografada],
       (erro, resultado) => {
         if (erro) {
-          console.error(erro);
+          console.error("Erro ao cadastrar:", erro.code);
+
+          // E-mail duplicado
+          if (erro.code === "ER_DUP_ENTRY") {
+            return res.status(409).json({
+              mensagem: "Este e-mail já está cadastrado.",
+            });
+          }
 
           return res.status(500).json({
             mensagem: "Erro ao cadastrar usuário",
@@ -34,7 +41,7 @@ router.post("/cadastro", async (req, res) => {
       }
     );
   } catch (erro) {
-    console.error(erro);
+    console.error("Erro interno:", erro);
 
     return res.status(500).json({
       mensagem: "Erro interno do servidor",
@@ -52,7 +59,7 @@ router.post("/login", async(req, res) => {
 
   connection.query(sql, [email], async (erro, resultado) => {
     if (erro) {
-      console.error(erro);
+      console.error("Erro ao buscar usuário:", erro.code);
       return res.status(500).json({
         mensagem: "Erro ao buscar usuário",
       });
