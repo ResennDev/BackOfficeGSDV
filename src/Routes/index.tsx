@@ -9,8 +9,11 @@ import { Home } from "../Pages/Home";
 
 function RotaPrivada({ children }: { children: ReactNode }) {
   const [autenticado, setAutenticado] = useState<boolean | null>(null);
+  const [erroServidor, setErroServidor] = useState(false);
 
   useEffect(() => {
+    let ativa = true;
+
     async function verificarSessao() {
       try {
         const url =
@@ -22,14 +25,44 @@ function RotaPrivada({ children }: { children: ReactNode }) {
           withCredentials: true,
         });
 
-        setAutenticado(true);
+        if (ativa) {
+          setAutenticado(true);
+          setErroServidor(false);
+        }
       } catch (erro) {
-        setAutenticado(false);
+        if (!ativa) return;
+
+        if (axios.isAxiosError(erro) && erro.response?.status === 401) {
+          setAutenticado(false);
+          setErroServidor(false);
+        } else {
+          setErroServidor(true);
+        }
       }
     }
 
+    // Verifica assim que a rota é aberta
     verificarSessao();
+
+    // Verifica novamente quando o usuário retorna à aba
+    function aoMudarVisibilidade() {
+      if (document.visibilityState === "visible") {
+        verificarSessao();
+      }
+    }
+
+    document.addEventListener("visibilitychange", aoMudarVisibilidade);
+
+    return () => {
+      ativa = false;
+
+      document.removeEventListener("visibilitychange", aoMudarVisibilidade);
+    };
   }, []);
+
+  if (erroServidor) {
+    return <p>Não foi possível verificar sua sessão. Tente novamente.</p>;
+  }
 
   if (autenticado === null) {
     return <p>Verificando sessão...</p>;
