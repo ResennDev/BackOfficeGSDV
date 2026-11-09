@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Sidebar } from "../../Components/Siderbar";
 import "./styles.scss";
 
 interface Usuario {
@@ -8,7 +9,6 @@ interface Usuario {
   nome: string;
   sobrenome: string;
   email: string;
-  senha: string;
 }
 
 export function Home() {
@@ -66,18 +66,23 @@ export function Home() {
 
   return (
     <div className="container-home">
-      <h1 className="home-title">
-        {usuario
-          ? `Seja Bem vindo(a), ${usuario.nome} ${usuario.sobrenome}!`
-          : "Carregando usuário..."}
-      </h1>
-      <p className="home-subtitle">
-        Esta é a página principal de seu sistema.{" "}
-      </p>
+      <Sidebar />
 
-      <button type="button" onClick={handleLogout} disabled={saindo}>
-        {saindo ? "Saindo..." : "Sair"}
-      </button>
+      <main className="home-content">
+        <h1 className="home-title">
+          {usuario
+            ? `Seja Bem vindo(a), ${usuario.nome} ${usuario.sobrenome}!`
+            : "Carregando usuário..."}
+        </h1>
+
+        <p className="home-subtitle">
+          Esta é a página principal de seu sistema.
+        </p>
+
+        <button type="button" onClick={handleLogout} disabled={saindo}>
+          {saindo ? "Saindo..." : "Sair"}
+        </button>
+      </main>
     </div>
   );
 }
