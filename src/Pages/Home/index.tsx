@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Sidebar } from "../../Components/Siderbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 import "./styles.scss";
 
 interface Usuario {
@@ -15,6 +17,7 @@ export function Home() {
   const navigate = useNavigate();
 
   const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [sidebarAberta, setSidebarAberta] = useState(true);
 
   useEffect(() => {
     async function buscarUsuario() {
@@ -36,39 +39,24 @@ export function Home() {
     buscarUsuario();
   }, [navigate]);
 
-  const [saindo, setSaindo] = useState(false);
-
-  async function handleLogout() {
-    try {
-      setSaindo(true);
-
-      const url =
-        window.location.hostname === "localhost"
-          ? "http://localhost:3001/auth/logout"
-          : "/api/auth/logout";
-
-      await axios.post(
-        url,
-        {},
-        {
-          withCredentials: true,
-        },
-      );
-
-      navigate("/", { replace: true });
-    } catch (erro) {
-      console.error("Erro ao fazer logout:", erro);
-      alert("Não foi possivel sair. Tente novamente.");
-    } finally {
-      setSaindo(false);
-    }
-  }
-
   return (
     <div className="container-home">
-      <Sidebar />
+      <Sidebar aberta={sidebarAberta} setAberta={setSidebarAberta} />
 
-      <main className="home-content">
+      <div
+        className={`button-sidebar ${sidebarAberta ? "menu-aberto" : "menu-fechado"}`}
+      >
+        <IconButton
+          className="menu-button"
+          onClick={() => setSidebarAberta(!sidebarAberta)}
+        >
+          <MenuIcon />
+        </IconButton>
+      </div>
+
+      <main
+        className={`home-content ${sidebarAberta ? "menu-aberto" : "menu-fechado"}`}
+      >
         <h1 className="home-title">
           {usuario
             ? `Seja Bem vindo(a), ${usuario.nome} ${usuario.sobrenome}!`
@@ -78,10 +66,6 @@ export function Home() {
         <p className="home-subtitle">
           Esta é a página principal de seu sistema.
         </p>
-
-        <button type="button" onClick={handleLogout} disabled={saindo}>
-          {saindo ? "Saindo..." : "Sair"}
-        </button>
       </main>
     </div>
   );

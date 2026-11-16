@@ -1,7 +1,7 @@
 .sidebar {
   width: 240px;
   height: 100vh;
-  background-color: #008616;
+  background-color: lightgreen;
   color: black;
 
   display: flex;
@@ -10,10 +10,12 @@
   position: fixed;
   left: 0;
   top: 0;
+
+  transition: transform 0.5s ease;
 }
 
 .sidebar-logo {
-  padding: 24px 20px;
+  padding: 10px 20px;
   border-bottom: 1px solid black;
 
   h2 {
@@ -43,14 +45,23 @@
     transition: 0.2s;
 
     &:hover {
-      background-color: lightgreen;
+      background-color: rgba(0, 0, 0, 0.4);
     }
   }
 }
 
 .sidebar-footer {
   margin-top: auto;
-  padding: 20px;
+  padding: 10px 20px;
+  border-top: 2px solid black;
+  font-weight: bold;
+
+  span {
+    display: block;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: normal;
+  }
 
   button {
     width: 100%;
@@ -66,4 +77,12 @@
       background-color: #4b5563;
     }
   }
+}
+
+.sidebar-fechada {
+  transform: translateX(-100%);
+}
+
+.sidebar-fechada > * {
+  visibility: hidden;
 }
