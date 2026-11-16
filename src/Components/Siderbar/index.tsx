@@ -3,7 +3,12 @@ import axios from "axios";
 import "./styles.scss";
 import { useState } from "react";
 
-export function Sidebar() {
+interface SidebarProps {
+  aberta: boolean;
+  setAberta: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export function Sidebar({ aberta, setAberta }: SidebarProps) {
   const navigate = useNavigate();
 
   const [saindo, setSaindo] = useState(false);
@@ -35,7 +40,7 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${!aberta ? "sidebar-fechada" : ""}`}>
       <div className="sidebar-logo">
         <h2>BackOffice</h2>
         <span>GSDV</span>
@@ -54,7 +59,7 @@ export function Sidebar() {
             handleLogout();
           }}
         >
-          Sair
+          {saindo ? "Saindo..." : "Sair"}
         </a>
       </nav>
 
