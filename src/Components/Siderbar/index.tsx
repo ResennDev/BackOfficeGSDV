@@ -13,6 +13,10 @@ export function Sidebar({ aberta, setAberta }: SidebarProps) {
 
   const [saindo, setSaindo] = useState(false);
 
+  function alternarSidebar() {
+    setAberta(!aberta);
+  }
+
   async function handleLogout() {
     try {
       setSaindo(true);
