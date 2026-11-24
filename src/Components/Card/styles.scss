@@ -1,0 +1,28 @@
+.dashboard-card {
+  flex: 1;
+
+  padding: 25px;
+
+  background-color: #008616;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+
+  // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  span {
+    font-size: 16px;
+    font-weight: bold;
+    color: White;
+  }
+
+  strong {
+    font-size: 32px;
+    color: black;
+  }
+}
