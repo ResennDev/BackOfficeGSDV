@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Login } from "../Pages/Login";
 import { Cadastro } from "../Pages/Cadastro";
 import { Home } from "../Pages/Home";
+import { Produtos } from "../Pages/Produtos";
 
 function RotaPrivada({ children }: { children: ReactNode }) {
   const [autenticado, setAutenticado] = useState<boolean | null>(null);
@@ -91,6 +92,16 @@ export const RoutesApp = () => {
             </RotaPrivada>
           }
         />
+
+        <Route
+          path="/produtos"
+          element={
+            <RotaPrivada>
+              <Produtos />
+            </RotaPrivada>
+          }
+        />
+        
       </Routes>
     </BrowserRouter>
   );

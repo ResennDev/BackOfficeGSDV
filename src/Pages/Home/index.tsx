@@ -30,7 +30,7 @@ export function Home() {
   const navigate = useNavigate();
 
   const [usuario, setUsuario] = useState<Usuario | null>(null);
-  const [sidebarAberta, setSidebarAberta] = useState(true);
+  const [sidebarAberta, setSidebarAberta] = useState(false);
   const [totalUsuarios, setTotalUsuarios] = useState(0);
   const [totalProdutos, setTotalProdutos] = useState(0);
 
@@ -104,7 +104,6 @@ export function Home() {
     { categoria: "Produtos", quantidade: totalProdutos },
   ];
 
-
   return (
     <div className="container-home">
       <Sidebar aberta={sidebarAberta} setAberta={setSidebarAberta} />
@@ -171,7 +170,12 @@ export function Home() {
                   <XAxis dataKey="categoria" />
                   <YAxis domain={[0, "dataMax + 10"]} />
                   <Tooltip />
-                  <Bar dataKey="quantidade" fill="#008616" radius={[5, 5, 0, 0]} barSize={50}>
+                  <Bar
+                    dataKey="quantidade"
+                    fill="#008616"
+                    radius={[5, 5, 0, 0]}
+                    barSize={50}
+                  >
                     <LabelList dataKey="quantidade" position="top" />
                   </Bar>
                 </BarChart>
